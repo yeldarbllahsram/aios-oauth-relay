@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AIOS QuickBooks connection</title>
+</head>
+<body>
+<p>Finishing the QuickBooks connection&hellip; if this page doesn't redirect automatically, make sure AIOS.TimeApi is running on this computer, then <a id="manual-link" href="#">click here</a>.</p>
+<script>
+  // Intuit's Production OAuth keys require an HTTPS redirect_uri -- they
+  // reject a plain http://localhost one outright. AIOS.TimeApi only ever
+  // runs locally on the reviewer's own machine (no public server), so
+  // this static page is the fixed, publicly-hosted stand-in registered
+  // with Intuit: it does nothing but bounce the browser straight back to
+  // that machine's localhost with the same query string Intuit sent here
+  // (code, realmId, state, or error), which is where AIOS.TimeApi's own
+  // /connect/quickbooks/callback actually completes the token exchange.
+  var target = "http://localhost:5038/connect/quickbooks/callback" + window.location.search;
+  document.getElementById("manual-link").href = target;
+  window.location.replace(target);
+</script>
+</body>
+</html>
